@@ -33,28 +33,28 @@
         app:layout_constraintVertical_bias="0.345" />
 
     <EditText
-        android:id="@+id/etAnswer2"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="48dp"
-        android:hint="x2"
-        android:inputType="number"
-        android:maxLength="5"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCheck"
-        app:layout_constraintStart_toEndOf="@+id/etAnswer1"
-        app:layout_constraintTop_toTopOf="@+id/btnCheck" />
-
-    <EditText
         android:id="@+id/etAnswer1"
         android:layout_width="60sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:hint="x1"
-        android:inputType="number"
+        android:inputType="numberSigned"
         android:maxLength="5"
         app:layout_constraintBottom_toBottomOf="@+id/etAnswer2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etAnswer2" />
+
+    <EditText
+        android:id="@+id/etAnswer2"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="48dp"
+        android:hint="x2"
+        android:inputType="numberSigned"
+        android:maxLength="5"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCheck"
+        app:layout_constraintStart_toEndOf="@+id/etAnswer1"
+        app:layout_constraintTop_toTopOf="@+id/btnCheck" />
 
     <Button
         android:id="@+id/btnCheck"
@@ -62,13 +62,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="164dp"
         android:layout_marginEnd="36dp"
-        android:onClick="checkClick"
+
         android:text="проверить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toEndOf="@+id/etAnswer2"
         app:layout_constraintTop_toBottomOf="@+id/tvRes"
-        app:layout_constraintVertical_bias="0.497" />
+        app:layout_constraintVertical_bias="0.497"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
