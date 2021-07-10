@@ -1,8 +1,11 @@
 package com.example.solveequations;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +14,9 @@ import com.zanvent.mathview.MathView;
 public class MainActivity extends AppCompatActivity {
 
     MathView mathView;
+    EditText etAnswer1;
+    EditText etAnswer2;
+    TextView tvRes;
 
     final String MATH_ML_INSERT = "$$";
 
@@ -18,12 +24,23 @@ public class MainActivity extends AppCompatActivity {
     int b;
     int c;
 
+    int D;
+    int x1, x2;
+    int count = 0;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setupMathView();
+        etAnswer1 = findViewById(R.id.etAnswer1);
+        etAnswer2 = findViewById(R.id.etAnswer2);
+        tvRes = findViewById(R.id.tvRes);
+
+        tvRes.setText(Integer.toString(count));
+
         setMathViewRandomCoefficientQuadraticEquations();
     }
 
@@ -35,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMathViewRandomCoefficientQuadraticEquations() {
-        a = (int) (-5 + Math.random() * 5);
-        b = (int) (-5 + Math.random() * 5);
-        c = (int) (-5 + Math.random() * 5);
+//        a = (int) (-5 + Math.random() * 5);
+//        b = (int) (-5 + Math.random() * 5);
+//        c = (int) (-5 + Math.random() * 5);
 
-//        a = 0;
-//        b = 0;
-//        c = 0;
+        a = 1;
+        b = -4;
+        c = 4;
 
         String outputResult = "";
 
@@ -169,8 +186,42 @@ public class MainActivity extends AppCompatActivity {
 
         mathView.setText(MATH_ML_INSERT + outputResult + MATH_ML_INSERT);
     }
+    D = b * b - 4 * a * c;
+    @SuppressLint("SetTextI18n")
+    private void checkAnswer() {
 
-    public void updateClick(View view) {
+        Log.d("WWW", "DISC" + D);
+        if (D < 0 && (etAnswer1.getText().toString().isEmpty() && etAnswer2.getText().toString().isEmpty())) {
+            if (D < 0) {
+                count++;
+                tvRes.setText(count);
+            }
+        } else if (D == 0) {
+            x1 = (int) ((-b + Math.sqrt(D)) / (2 * a));
+            etAnswer2.setEnabled(false);
+
+            if (x1 == Integer.parseInt(etAnswer1.getText().toString())) {
+                count++;
+                tvRes.setText(Integer.toString(count));
+            } else
+                tvRes.setText("FALSE" + D);
+
+        } else if (D > 0) {
+            x1 = (int) ((-b + Math.sqrt(D)) / (2 * a));
+            x2 = (int) ((-b - Math.sqrt(D)) / (2 * a));
+
+            if (x1 == Integer.parseInt(etAnswer1.getText().toString()) && x2 == Integer.parseInt(etAnswer2.getText().toString())) {
+                count++;
+                tvRes.setText(Integer.toString(count));
+            } else
+                tvRes.setText("FALSE");
+        }
+
+        setMathViewRandomCoefficientQuadraticEquations();
+    }
+
+    public void checkClick(View view) {
+        checkAnswer();
         setMathViewRandomCoefficientQuadraticEquations();
     }
 }

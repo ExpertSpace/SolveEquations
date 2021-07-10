@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,23 +11,64 @@
         android:id="@+id/mathView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30sp"/>
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.zanvent.mathview.MathView>
+
+    <TextView
+        android:id="@+id/tvRes"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text=""
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.345" />
+
+    <EditText
+        android:id="@+id/etAnswer2"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="48dp"
+        android:hint="x2"
+        android:inputType="number"
+        android:maxLength="5"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCheck"
+        app:layout_constraintStart_toEndOf="@+id/etAnswer1"
+        app:layout_constraintTop_toTopOf="@+id/btnCheck" />
+
+    <EditText
+        android:id="@+id/etAnswer1"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:hint="x1"
+        android:inputType="number"
+        android:maxLength="5"
+        app:layout_constraintBottom_toBottomOf="@+id/etAnswer2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etAnswer2" />
 
     <Button
         android:id="@+id/btnCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:onClick="updateClick"
-        android:text="проверить" />
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="36dp"
+        android:onClick="checkClick"
+        android:text="проверить"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintStart_toEndOf="@+id/etAnswer2"
+        app:layout_constraintTop_toBottomOf="@+id/tvRes"
+        app:layout_constraintVertical_bias="0.497" />
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnCheck" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
