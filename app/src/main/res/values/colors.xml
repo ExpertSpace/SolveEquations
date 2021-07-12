@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="custom_black_back">#262222</color>
-    <color name="green">#ab3ecd5e</color>
+    <color name="green">#3ecd5e</color>
+    <color name="yellow">#FFFF00</color>
 </resources>

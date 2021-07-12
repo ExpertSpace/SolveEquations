@@ -1,41 +1,41 @@
 package com.example.solveequations;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.zanvent.mathview.MathView;
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
-    MathView mathView;
-    EditText etAnswer1;
-    EditText etAnswer2;
-    TextView tvRes;
+    private MathView mathView;
+    private EditText etAnswer1;
+    private EditText etAnswer2;
+    private TextView tvRes;
 
-    Button button;
+    private int a;
+    private int b;
+    private int c;
 
-    final String MATH_ML_INSERT = "$$";
-
-    int a;
-    int b;
-    int c;
-
-    int D;
-    int x1, x2;
-    int count = 0;
+    private float x1, x2;
+    private int count = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setupMathView();
         etAnswer1 = findViewById(R.id.etAnswer1);
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         setMathViewRandomCoefficientQuadraticEquations();
 
-        button = findViewById(R.id.btnCheck);
+        Button button = findViewById(R.id.btnCheck);
 
         button.setOnClickListener(v -> {
             checkAnswer();
@@ -54,21 +54,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupMathView() {
+    public void setupMathView() {
         mathView = findViewById(R.id.mathView);
         mathView.setPixelScaleType(MathView.Scale.SCALE_SP);
         mathView.setTextSize(30);
         mathView.setTextColor("#3ecd5e");
     }
 
-    private void setMathViewRandomCoefficientQuadraticEquations() {
-        a = (int) (-5 + Math.random() * 5);
-        b = (int) (-5 + Math.random() * 5);
-        c = (int) (-5 + Math.random() * 5);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-//        a = 1;
-//        b = -1;
-//        c = -2;
+    @Override
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_manual:
+                startActivity(new Intent(MainActivity.this, Manual.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setMathViewRandomCoefficientQuadraticEquations() {
+//        a = (int) (-5 + Math.random() * 5);
+//        b = (int) (-5 + Math.random() * 5);
+//        c = (int) (-5 + Math.random() * 5);
+
+        a = 1;
+        b = -2;
+        c = -4;
 
         String outputResult = "";
 
@@ -194,12 +210,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("QQQ", "======================= VALUES 8 END =========================");
         }
 
-        mathView.setText(MATH_ML_INSERT + outputResult + MATH_ML_INSERT);
+        mathView.setText("$$" + outputResult + "$$");
     }
 
     @SuppressLint("SetTextI18n")
     private void checkAnswer() {
-        D = b * b - 4 * a * c;
+        final int D = b * b - 4 * a * c;
         Log.d("WWW", "DISC = " + D);
         if (D < 0) {
             if (etAnswer1.getText().toString().isEmpty() && etAnswer2.getText().toString().isEmpty()) {
@@ -209,30 +225,30 @@ public class MainActivity extends AppCompatActivity {
                 tvRes.setText("FALSE");
             }
         } else if (D == 0) {
-            x1 = (int) ((-b + Math.sqrt(D)) / (2 * a));
+            x1 = Math.round(((-b + Math.sqrt(D)) / (2 * a)) * 100 / 100.0);
 
-            if ((Integer.toString(x1).equals(etAnswer1.getText().toString()) && etAnswer2.getText().toString().isEmpty())
-                    || (Integer.toString(x1).equals(etAnswer2.getText().toString()) && etAnswer1.getText().toString().isEmpty())) {
+            if ((Float.toString(x1).equals(etAnswer1.getText().toString()) && etAnswer2.getText().toString().isEmpty())
+                    || (Float.toString(x1).equals(etAnswer2.getText().toString()) && etAnswer1.getText().toString().isEmpty())) {
                 count++;
                 tvRes.setText(Integer.toString(count));
             } else
-                tvRes.setText("FALSE" + D);
+                tvRes.setText("FALSE");
 
         } else if (D > 0 && !(etAnswer1.getText().toString().isEmpty() && etAnswer2.getText().toString().isEmpty())) {
-            x1 = (int) ((-b + Math.sqrt(D)) / (2 * a));
-            x2 = (int) ((-b - Math.sqrt(D)) / (2 * a));
+            x1 = (float) (Math.round(((-b + Math.sqrt(D)) / (2 * a)) * 1000) / 1000.0);
+            x2 = (float) (Math.round(((-b - Math.sqrt(D)) / (2 * a)) * 1000) / 1000.0);
 
             Log.d("WWW", "x1 = " + x1);
             Log.d("WWW", "x2 = " + x2);
 
-            if (Integer.toString(x1).equals(etAnswer1.getText().toString()) && Integer.toString(x2).equals(etAnswer2.getText().toString())
-                    || Integer.toString(x1).equals(etAnswer2.getText().toString()) && Integer.toString(x2).equals(etAnswer1.getText().toString())) {
+            if (Float.toString(x1).equals(etAnswer1.getText().toString()) && Float.toString(x2).equals(etAnswer2.getText().toString())
+                    || Float.toString(x1).equals(etAnswer2.getText().toString()) && Float.toString(x2).equals(etAnswer1.getText().toString())) {
                 count++;
                 tvRes.setText(Integer.toString(count));
             } else
                 tvRes.setText("FALSE");
         } else {
-            return;
+            tvRes.setText("FALSE");
         }
 
         setMathViewRandomCoefficientQuadraticEquations();

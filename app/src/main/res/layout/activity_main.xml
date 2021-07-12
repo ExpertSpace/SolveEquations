@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
+        
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,7 @@
     <TextView
         android:id="@+id/tvRes"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text=""
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,8 +38,9 @@
         android:layout_width="60sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:hint="x1"
-        android:inputType="numberSigned"
+        android:digits="0123456789-."
+        android:hint="@string/x1"
+        android:inputType="number"
         android:maxLength="5"
         app:layout_constraintBottom_toBottomOf="@+id/etAnswer2"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +51,9 @@
         android:layout_width="60dp"
         android:layout_height="45dp"
         android:layout_marginStart="48dp"
-        android:hint="x2"
-        android:inputType="numberSigned"
+        android:digits="0123456789-."
+        android:hint="@string/x2"
+        android:inputType="number"
         android:maxLength="5"
         app:layout_constraintBottom_toBottomOf="@+id/btnCheck"
         app:layout_constraintStart_toEndOf="@+id/etAnswer1"
@@ -62,14 +65,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="164dp"
         android:layout_marginEnd="36dp"
-
-        android:text="проверить"
+        android:text="@string/check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toEndOf="@+id/etAnswer2"
         app:layout_constraintTop_toBottomOf="@+id/tvRes"
-        app:layout_constraintVertical_bias="0.497"
-        />
+        app:layout_constraintVertical_bias="0.497" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
