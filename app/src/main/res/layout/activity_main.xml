@@ -7,7 +7,7 @@
     android:background="@color/custom_black_back"
     tools:context=".MainActivity">
 
-    <com.zanvent.mathview.MathView
+    <com.example.solveequations.MathView
         android:id="@+id/mathView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.zanvent.mathview.MathView>
+    </com.example.solveequations.MathView>
 
     <TextView
         android:id="@+id/tvRes"

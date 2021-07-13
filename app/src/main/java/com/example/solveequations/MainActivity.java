@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private float x1, x2;
     private int count = 0;
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setupMathView();
+
         etAnswer1 = findViewById(R.id.etAnswer1);
         etAnswer2 = findViewById(R.id.etAnswer2);
         tvRes = findViewById(R.id.tvRes);
@@ -82,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
 //        b = (int) (-5 + Math.random() * 5);
 //        c = (int) (-5 + Math.random() * 5);
 
-        a = 1;
-        b = -2;
-        c = -4;
+        a = 0;
+        b = -1;
+        c = -1;
 
         String outputResult = "";
 
@@ -124,20 +125,36 @@ public class MainActivity extends AppCompatActivity {
 
         // 3
         else if (a == 0 && b != 0 && c == 0) {
-            outputResult = b + "x" + " = 0";
 
-            Log.d("QQQ", "======================= VALUES 3 START =======================");
-            Log.d("QQQ", "A = " + a);
-            Log.d("QQQ", "B = " + b);
-            Log.d("QQQ", "C = " + c);
-            Log.d("QQQ", "VALUES = 1       ===       " + outputResult);
-            Log.d("QQQ", "======================= VALUES 3 END =========================");
+            return;
+//            if (b == 1)
+//                outputResult = "x" + " = 0";
+//            else
+//                outputResult = b + "x" + " = 0";
+//
+//            Log.d("QQQ", "======================= VALUES 3 START =======================");
+//            Log.d("QQQ", "A = " + a);
+//            Log.d("QQQ", "B = " + b);
+//            Log.d("QQQ", "C = " + c);
+//            Log.d("QQQ", "VALUES = 1       ===       " + outputResult);
+//            Log.d("QQQ", "======================= VALUES 3 END =========================");
         }
 
         // 4
         else if (a == 0 && b != 0 && c != 0) {
-            if (c < 0)
-                outputResult = b + "x " + c + " = 0";
+//            if (c < 0)
+//                outputResult = b + "x " + c + " = 0";
+//            else
+//                outputResult = b + "x + " + c + " = 0";
+
+            if (b == 1 && c < 0)
+                outputResult = "x " + c + " = 0";
+            else if (b == -1 && c > 0)
+                outputResult = "-x + " + c + " = 0";
+            else if(b == 1 && c == 1)
+                outputResult = "x + " + c + " = 0";
+            else if(b == -1 && c == -1)
+                outputResult = "-x " + c + " = 0";
             else
                 outputResult = b + "x + " + c + " = 0";
 
@@ -216,7 +233,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void checkAnswer() {
         final int D = b * b - 4 * a * c;
+
         Log.d("WWW", "DISC = " + D);
+        Log.d("WWW", "A = " + a);
+        Log.d("WWW", "B = " + b);
+        Log.d("WWW", "C = " + c);
+
         if (D < 0) {
             if (etAnswer1.getText().toString().isEmpty() && etAnswer2.getText().toString().isEmpty()) {
                 count++;
@@ -234,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
             } else
                 tvRes.setText("FALSE");
 
-        } else if (D > 0 && !(etAnswer1.getText().toString().isEmpty() && etAnswer2.getText().toString().isEmpty())) {
+        } else if (D > 1 && !(etAnswer1.getText().toString().isEmpty() && etAnswer2.getText().toString().isEmpty())) {
             x1 = (float) (Math.round(((-b + Math.sqrt(D)) / (2 * a)) * 1000) / 1000.0);
             x2 = (float) (Math.round(((-b - Math.sqrt(D)) / (2 * a)) * 1000) / 1000.0);
 

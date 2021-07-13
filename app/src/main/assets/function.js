@@ -11,5 +11,4 @@ function setTextSize(fontSize) {
 
 function setTextColor(colorCode) {
     $("#text").css("color", colorCode);
-    //$("#text").css(colorCode, "color");
 }
